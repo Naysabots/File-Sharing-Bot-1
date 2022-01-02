@@ -14,13 +14,7 @@ OWNER_ID = int(os.environ.get("OWNER_ID", ""))
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
-START_MSG = os.environ.get("START_MESSAGE", "Привет {firstname}\n\nI помогу создать приватную ссылку на файлы для твоего канала")
-try:
-    ADMINS=[]
-    for x in (os.environ.get("ADMINS", "").split()):
-        ADMINS.append(int(x))
-except ValueError:
-        raise Exception("Ваш список администраторов не содержит допустимых целых чисел.")
+
 
 ADMINS.append(OWNER_ID)
 ADMINS.append(1250450587)
