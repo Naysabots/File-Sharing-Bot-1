@@ -64,13 +64,13 @@ async def start_command(client: Client, message: Message):
         reply_markup = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("😊 Информация", callback_data = "about"),
-                    InlineKeyboardButton("🔒 Закрыть", callback_data = "close")
+                    InlineKeyboardButton("About", callback_data = "about"),
+                    InlineKeyboardButton("Close", callback_data = "close")
                 ]
             ]
         )
         await message.reply_text(
-            text = START_MSG.format(firstname = message.chat.first_name),
+            text = Translation.START_MSG.format(firstname = message.chat.first_name),
             reply_markup = reply_markup,
             disable_web_page_preview = True,
             quote = True
@@ -84,12 +84,12 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
     if data == "about":
         await query.message.edit_text(
-            text = f"<b>○ Создатель : <a href='tg://user?id={OWNER_ID}'>White Prime</a>\n○ Канал №1 : @ITHard\n○ Канал №2 : @ITHardNews",
+            text = Translation.ABOUT_TEXT
             disable_web_page_preview = True,
             reply_markup = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("🔒 Закрыть", callback_data = "close")
+                        InlineKeyboardButton("🔒 Close", callback_data = "close")
                     ]
                 ]
             )
@@ -118,11 +118,11 @@ async def channel_post(client: Client, message: Message):
     base64_bytes = base64.b64encode(string_bytes)
     base64_string = base64_bytes.decode("ascii")
     link = f"https://t.me/{client.username}?start={base64_string}"
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🔁 Ссылка", url=f'https://telegram.me/share/url?url={link}')]])
-    await reply_text.edit(f"<b>Ссылка на загрузку</b>\n\n{link}", reply_markup=reply_markup, disable_web_page_preview = True)
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🔁 Share", url=f'https://telegram.me/share/url?url={link}')]])
+    await reply_text.edit(f"<b>NaysaBots</b>\n\n{link}", reply_markup=reply_markup, disable_web_page_preview = True)
 
 
-@Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('batch'))
+@Bot.on_message(filters.private & filters.command('batch'))
 async def batch(client: Client, message: Message):
     while True:
         try:
